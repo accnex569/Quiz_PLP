@@ -1,13 +1,13 @@
 {
-  "name": "Quiz_PLP",
+  "name": "quiz",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "engines": {
-    "node": "0.12.5",
-    "npm": "1.4.21"
+    "node": "0.10.x",
+    "npm": "1.4.x"
   },
   "dependencies": {
     "body-parser": "~1.8.1",
@@ -17,9 +17,8 @@
     "express": "~4.9.0",
     "express-partials": "^0.3.0",
     "morgan": "~1.3.0",
-    "node-pre-gyp": "^0.6.7",
-    "sequelize": "^1.7.0",
+    "sequelize": "^2.0.0-rc4",
     "serve-favicon": "~2.1.3",
-    "sqlite3": "^3.0.8"
+    "sqlite3": "^3.0.4"
   }
 }

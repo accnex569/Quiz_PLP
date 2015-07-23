@@ -3,7 +3,6 @@
  */
 
 var path = require('path');
-
 // Postgres DATABASE_URL = postgres://user:passwd@host:port/database
 // SQLite   DATABASE_URL = sqlite://:@:/
 var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
@@ -19,7 +18,7 @@ var storage  = process.env.DATABASE_STORAGE;
 // Cargar Modelo ORM
 var Sequelize = require('sequelize');
 
-// Usar BBDD SQLite
+// Usar BBDD SQLite o Postgres
 var sequelize = new Sequelize(DB_name, user, pwd,
     { dialect:  protocol,
         protocol: protocol,
@@ -30,23 +29,22 @@ var sequelize = new Sequelize(DB_name, user, pwd,
     }
 );
 
-    //Importar la definicion de la tabla Quiz en quiz.js
+// Importar la definicion de la tabla Quiz en quiz.js
 var quiz_path = path.join(__dirname,'quiz');
 var Quiz = sequelize.import(quiz_path);
 
-    //exportar definicion de tabla quiz
-exports.Quiz = Quiz
 
-    //sequelize.sync() crea e inicializa tabla de preguntas en DB
-sequelize.sync().then(function(){
-        Quiz.count().then(function(count){
-            if (count===0){
-                Quiz.create({
-                    pregunta: 'Capital de Italia',
-                    respuesta: 'Roma'
-                })
-                    .then(function(){console.log('BD inicializada')})
-            };
-        });
-    }
-);
+exports.Quiz = Quiz; // exportar definición de tabla Quiz
+
+// sequelize.sync() crea e inicializa tabla de preguntas en DB
+sequelize.sync().then(function() {
+    // success(..) ejecuta el manejador una vez creada la tabla
+    Quiz.count().then(function (count){
+        if(count === 0) {   // la tabla se inicializa solo si está vacía
+            Quiz.create({ pregunta: 'Capital de Italia',
+                respuesta: 'Roma'
+            })
+                .then(function(){console.log('Base de datos inicializada')});
+        };
+    });
+});
