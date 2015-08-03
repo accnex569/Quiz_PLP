@@ -1,10 +1,21 @@
 <label for="preg" class="rem">Pregunta:</label>
 <input type="text" id="preg" name="quiz[pregunta]"
-       placeholder="<%= quiz.pregunta %>"/> <p>
+       placeholder="<%= quiz.pregunta %>"/>
+<p>
     <label for="resp" class="rem">Respuesta:</label>
     <input type="text" id="resp" name="quiz[respuesta]"
            placeholder="<%= quiz.respuesta %>"/>
 <p>
+    <label for="indice" class="rem">Indice Tematico:</label>
+    <select name="quiz[indice]">
+        <option value="Geografia" <%= quiz.indice == 'Geografia' ? 'selected' : '' %>>Geografia</option>
+        <option value="Otros" <%= quiz.indice == 'Otros' ? 'selected' : '' %>>Otros</option>
+        <option value="Humanidades" <%= quiz.indice == 'Humanidades' ? 'selected' : '' %>>Humanidades</option>
+        <option value="Ocio" <%= quiz.indice == 'Ocio' ? 'selected' : '' %>>Ocio</option>
+        <option value="Ciencias" <%= quiz.indice == 'Ciencias' ? 'selected' : '' %>>Ciencias</option>
+        <option value="Tecnologías" <%= quiz.indice == 'Tecnologías' ? 'selected' : '' %>>Tecnologías</option>
+    </select>
+
     <a href="/quizes">
         <button type="button">Cancelar</button>
     </a>
