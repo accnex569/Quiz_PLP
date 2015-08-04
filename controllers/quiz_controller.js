@@ -7,8 +7,14 @@ var models = require('../models/models.js');
 //autoload
 
 exports.load = function (req, res, next, quizId) {
-    models.Quiz.find(quizId).then(
-        function (quiz) {
+    models.Quiz.find({
+        where: {
+            id: Number(quizId)
+        },
+        include: [{
+            model: models.Comment
+        }]
+    }).then(function(quiz) {
             if (quiz) {
                 req.quiz = quiz;
                 next();
