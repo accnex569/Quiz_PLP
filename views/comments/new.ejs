@@ -1,6 +1,9 @@
 Añadir comentario: <p>
+    <% if(session.user){ %>
+<form method="post" action="/quizes/<%= quizid %>/comments/">
+    <input type="text" id="comment" name="comment[texto]" value="" placeholder="Añada Comentario"/>
 
-<form method="post" action="/quizes/<%=quizid%>/comments/" >
-    <input type="text" id="comment" name="comment[texto]" value="" placeholder="Añada Comentario" /> <p>
-    <button type="submit">Enviar</button>
-    </form>
+    <p>
+        <button type="submit">Enviar</button>
+</form>
+<% } %>
