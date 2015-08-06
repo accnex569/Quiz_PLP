@@ -8,7 +8,6 @@ var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var routes = require('./routes/index');
-var redir = require('express-redir');
 
 var app = express();
 
@@ -27,8 +26,6 @@ app.use(bodyParser.json());
 app.use(cookieParser(";7'R59;^3I,w`w48}mV~$Ez"));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(redir);
-//app.use(session({ secret: 'Quiz-plp', resave: true, saveUninitialized: true }));
 
 
 app.use(session({
