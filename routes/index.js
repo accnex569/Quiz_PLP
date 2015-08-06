@@ -4,6 +4,7 @@ var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 var authorController = require('../controllers/author_controller');
+var statisticsController = require('../controllers/statistics_controller');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -33,5 +34,7 @@ router.get('/logout',                            sessionController.destroy);
 //router.delete('/logout',                         sessionController.destroy);
 
 router.get('/author',                            authorController.author);
+
+router.get('/quizes/statistics',                 statisticsController.statistics);
 
 module.exports = router;
