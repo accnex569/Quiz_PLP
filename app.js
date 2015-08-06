@@ -8,7 +8,7 @@ var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var routes = require('./routes/index');
-
+var redir = require('express-redir');
 
 var app = express();
 
@@ -22,26 +22,47 @@ app.use(partials());
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 app.use(cookieParser(";7'R59;^3I,w`w48}mV~$Ez"));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(redir);
+//app.use(session({ secret: 'Quiz-plp', resave: true, saveUninitialized: true }));
 
-app.use(session());
+
+app.use(session({
+    cookie: {
+        _expires: 120000,
+        originalMaxAge: 120000,
+    },
+    resave: true,
+    saveUninitialized: true
+}));
 
 // Helpers dinamicos:
-    app.use(function(req, res, next) {
+app.use(function (req, res, next) {
 
-        // guardar path en session.redir para despues de login
-        if (!req.path.match(/\/login|\/logout/)) {
-            req.session.redir = req.path;
-        }
+    // guardar path en session.redir para despues de login
+    if (!req.path.match(/\/login|\/logout/)) {
+        req.session.redir = req.path;
+    }
 
-        // Hacer visible req.session en las vistas
-        res.locals.session = req.session;
-        next();
-    });
+    // Hacer visible req.session en las vistas
+    res.locals.session = req.session;
+    next();
+});
+
+
+app.use(function (req, res, next) {
+
+    var sesion = req.session;
+    console.log(req.session, req.session.cookie._expires );
+    next();
+
+});
+
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -49,6 +70,7 @@ app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
+
 });
 
 // error handlers

@@ -53,6 +53,10 @@
         &nbsp;&nbsp;
         <a href="https://github.com/accnex569/Quiz_PLP" target="_blank">
             Pagina del proyecto</a>
+        &nbsp;&nbsp;
+        <% if(session.user){ %>
+       <span> Sesion expira:</span> <%= session.cookie._expires.toString() %>
+        <% } %>
     </footer>
 </div>
 </body>
